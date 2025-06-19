@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 // Types
 type TimelineContextValue = {
-  activeStep: number
-  setActiveStep: (step: number) => void
-}
+  activeStep: number;
+  setActiveStep: (step: number) => void;
+};
 
 // Context
 const TimelineContext = React.createContext<TimelineContextValue | undefined>(
   undefined
-)
+);
 
 const useTimeline = () => {
-  const context = React.useContext(TimelineContext)
+  const context = React.useContext(TimelineContext);
   if (!context) {
-    throw new Error("useTimeline must be used within a Timeline")
+    throw new Error("useTimeline must be used within a Timeline");
   }
-  return context
-}
+  return context;
+};
 
 // Components
 interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
-  defaultValue?: number
-  value?: number
-  onValueChange?: (value: number) => void
-  orientation?: "horizontal" | "vertical"
+  defaultValue?: number;
+  value?: number;
+  onValueChange?: (value: number) => void;
+  orientation?: "horizontal" | "vertical";
 }
 
 function Timeline({
@@ -40,19 +40,19 @@ function Timeline({
   className,
   ...props
 }: TimelineProps) {
-  const [activeStep, setInternalStep] = React.useState(defaultValue)
+  const [activeStep, setInternalStep] = React.useState(defaultValue);
 
   const setActiveStep = React.useCallback(
     (step: number) => {
       if (value === undefined) {
-        setInternalStep(step)
+        setInternalStep(step);
       }
-      onValueChange?.(step)
+      onValueChange?.(step);
     },
     [value, onValueChange]
-  )
+  );
 
-  const currentStep = value ?? activeStep
+  const currentStep = value ?? activeStep;
 
   return (
     <TimelineContext.Provider
@@ -68,7 +68,7 @@ function Timeline({
         {...props}
       />
     </TimelineContext.Provider>
-  )
+  );
 }
 
 // TimelineContent
@@ -82,12 +82,12 @@ function TimelineContent({
       className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
-  )
+  );
 }
 
 // TimelineDate
 interface TimelineDateProps extends React.HTMLAttributes<HTMLTimeElement> {
-  asChild?: boolean
+  asChild?: boolean;
 }
 
 function TimelineDate({
@@ -95,7 +95,7 @@ function TimelineDate({
   className,
   ...props
 }: TimelineDateProps) {
-  const Comp = asChild ? Slot : "time"
+  const Comp = asChild ? Slot : "time";
 
   return (
     <Comp
@@ -106,7 +106,7 @@ function TimelineDate({
       )}
       {...props}
     />
-  )
+  );
 }
 
 // TimelineHeader
@@ -116,12 +116,12 @@ function TimelineHeader({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div data-slot="timeline-header" className={cn(className)} {...props} />
-  )
+  );
 }
 
 // TimelineIndicator
 interface TimelineIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
-  asChild?: boolean
+  asChild?: boolean;
 }
 
 function TimelineIndicator({
@@ -130,8 +130,10 @@ function TimelineIndicator({
   children,
   ...props
 }: TimelineIndicatorProps) {
+  const Comp = asChild ? Slot : "div";
+
   return (
-    <div
+    <Comp
       data-slot="timeline-indicator"
       className={cn(
         "border-primary/20 group-data-completed/timeline-item:border-primary absolute size-4 rounded-full border-2 group-data-[orientation=horizontal]/timeline:-top-6 group-data-[orientation=horizontal]/timeline:left-0 group-data-[orientation=horizontal]/timeline:-translate-y-1/2 group-data-[orientation=vertical]/timeline:top-0 group-data-[orientation=vertical]/timeline:-left-6 group-data-[orientation=vertical]/timeline:-translate-x-1/2",
@@ -141,17 +143,17 @@ function TimelineIndicator({
       {...props}
     >
       {children}
-    </div>
-  )
+    </Comp>
+  );
 }
 
 // TimelineItem
 interface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  step: number
+  step: number;
 }
 
 function TimelineItem({ step, className, ...props }: TimelineItemProps) {
-  const { activeStep } = useTimeline()
+  const { activeStep } = useTimeline();
 
   return (
     <div
@@ -163,7 +165,7 @@ function TimelineItem({ step, className, ...props }: TimelineItemProps) {
       data-completed={step <= activeStep || undefined}
       {...props}
     />
-  )
+  );
 }
 
 // TimelineSeparator
@@ -181,7 +183,7 @@ function TimelineSeparator({
       aria-hidden="true"
       {...props}
     />
-  )
+  );
 }
 
 // TimelineTitle
@@ -195,7 +197,7 @@ function TimelineTitle({
       className={cn("text-sm font-medium", className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -207,4 +209,4 @@ export {
   TimelineItem,
   TimelineSeparator,
   TimelineTitle,
-}
+};

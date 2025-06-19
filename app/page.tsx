@@ -45,7 +45,8 @@ export default function Home() {
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
               Une solution simple et élégante pour transformer vos idées en
-              réalité. Commencez dès aujourd'hui et découvrez la différence.
+              réalité. Commencez dès aujourd&apos;hui et découvrez la
+              différence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
@@ -152,8 +153,8 @@ export default function Home() {
               Prêt à commencer ?
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Rejoignez des milliers d'utilisateurs qui font déjà confiance à
-              notre solution
+              Rejoignez des milliers d&apos;utilisateurs qui font déjà confiance
+              à notre solution
             </p>
             <button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
               Démarrer maintenant
